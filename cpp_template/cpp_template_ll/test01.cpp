@@ -1,81 +1,51 @@
 #include <iostream>
 
-template <class T> class Node;
-template <class T> class List;
-
-template <class T>
-class Node{
-public:
-	Node(T v)
-		:val(v), next(nullptr)
-	{}
-
-	friend class List<T>;
-	template <class U>
-	friend std::ostream& operator<<(std::ostream& os, const List<U>& l);
-
-private:
-	T val;
-	Node<T> *next;
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
 };
 
-template <class T>
-class List{
-public:
-	List():head(nullptr) {}
-	
-	~List(){
-		Node<T> *curr;
-		while(head){
-			curr = head;
-			head = head->next;
-			delete curr;
-		}
-		head = nullptr;
-	}
-
-	void insert(T v){
-		if(head == nullptr){
-			Node<T> *n = new Node<T>(v);
-			head = n;
-		}else{
-			Node<T> *curr = head;
-			while(curr->next)
-				curr = curr->next;
-			curr->next = new Node<T>(v);
-		}
-	}
-	template <class U>
-	friend std::ostream& operator<<(std::ostream& os, const List<U>& l);
-	
-
-private:
-	Node<T> *head;
-};
-
-template <class T>
-std::ostream& operator<<(std::ostream& os, const List<T>& l){
-	Node<T> *curr = l.head;
-	while(curr){
-		os << curr->val << " ";
-		curr = curr->next;
-	}
-	os << "\n";
-	return os;
+std::ostream& operator<<(std::ostream& os, ListNode* curr){
+    while(curr){
+        os << curr->val;
+        os << " ";
+        curr = curr->next;
+    }
+    os << "\n";
+    return os;
 }
 
+ListNode* f(ListNode* head){
+    return head;
+}
+
+ListNode* append(ListNode* head, int val){
+    ListNode* node = new ListNode(val);
+    if(head == nullptr){
+        head = node;
+    }
+    else{
+        ListNode* curr = head;
+        while(curr->next){
+            curr = curr->next;
+        }
+        curr->next = node;
+    }
+    return head;
+}
 
 int main(int argc, char *argv[]){
-	List<int> l;
+    int n, val;
+    ListNode* head;
 
-	int n, e;
-	std::cin >> n;
+    std::cin >> n;
 	for(int i = 0; i < n; ++i){
-		std::cin >> e;
-		l.insert(e);
+		std::cin >> val;
+		head = append(head, val);
 	}
 
-	std::cout << l;
+	std::cout << f(head);
 
 	return 0;
 }

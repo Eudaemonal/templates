@@ -3,9 +3,9 @@
 
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const std::vector<std::vector<T>> &v){
-	for(size_t i=0; i < v.size(); ++i){
-		for(size_t j=0; j < v[0].size(); ++j){
-			os << v[i][j] << " ";
+	for(auto row: v){
+		for(auto it: row){
+			os << it << " ";
 		}
 		os << "\n";
 	}
@@ -15,12 +15,7 @@ std::ostream& operator<<(std::ostream& os, const std::vector<std::vector<T>> &v)
 int f(std::vector<std::vector<int>> v){
 	int n = v.size();
 	int m = v[0].size();
-	for(int i=0; i < n; ++i){
-		for(int j=0; j < m; ++j){
-			
-		}
-	}
-	return 0;
+
 }
 
 int main(int argc, char *argv[]){

@@ -65,5 +65,11 @@ newPythonProj(){
 alias mkpy=newPythonProj
 
 
-
+newJavaProj(){
+    cp -r ~/Templates/java_template .
+    mv java_template $1
+    cd $1
+    gvim *.java *.txt
+}
+alias mkja=newJavaProj
 

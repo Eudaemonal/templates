@@ -1,121 +1,42 @@
 #include <iostream>
-#include <string>
+#include <queue>
 
-template <typename T> class Node;
-template <typename T> class BTree;
-
-
-template <typename T>
-class Node{
-public:
-	Node(T v)
-		:val(v), left(nullptr), right(nullptr)
-	{}
-	
-	friend class BTree<T>;
-private:
-	T val;
-	Node<T> *left, *right;
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-template <typename T>
-class BTree{
-public:
-	BTree()
-		:root(nullptr)
-	{}
+std::ostream& operator<<(std::ostream& os, TreeNode *root)  {  
+    if (root == NULL) return os;
+    std::queue<TreeNode*> q;
+ 
+    q.push(root);
+    while (q.empty() == false) {
+        int count = q.size();
+        while (count > 0) {
+            TreeNode* node = q.front();
+            os << node->val << " ";
+            q.pop();
+            if(node->left != NULL){
+                q.push(node->left);
+            }
+            if(node->right != NULL){
+                q.push(node->right);
+            }
+            count--;
+        }
+        os << "\n";
+    }
+    return os;
+}
 
-	void insert(const T val){
-		root = insert(root, val);		
-	}
-
-	Node<T>* find(const T val){
-		return find(root, val);
-	}
-
-	void traversal(const std::string mode){
-		if(mode=="preorder"){
-			preorder(root);
-		}else if(mode == "inorder"){
-			inorder(root);
-		}else if(mode == "postorder"){
-			postorder(root);
-		}else{
-			std::cerr << "Mode not available\n";
-			exit(0);
-		}
-		std::cout << "\n";
-	}
-
-private:
-
-	Node<T>* insert(Node<T>* n, const T val){
-		if(n==nullptr){
-			return new Node<T>(val);
-		}else if(val < n->val){
-			n->left = insert(n->left, val);
-			return n;
-		}else if(val > n->val){
-			n->right = insert(n->right, val);
-			return n;
-		}else{
-			std::cerr << "Insert same value\n";
-			exit(0);
-		}
-	}
-
-	Node<T>* find(const Node<T>* n, const T val){
-		if(n==nullptr||val == n->val){
-			return n;
-		}else if(val < n->val){
-			return find(n->left, val);
-		}else if(val > n->val){
-			return find(n->right, val);
-		}
-	}
-	
-	void preorder(const Node<T>* n) const{
-		if(n==nullptr)
-			return;
-		std::cout << n->val << " ";
-		inorder(n->left);
-		inorder(n->right);
-	}
-
-	void inorder(const Node<T>* n) const{
-		if(n==nullptr)
-			return;
-		inorder(n->left);
-		std::cout << n->val << " ";
-		inorder(n->right);
-	}
-
-	void postorder(const Node<T>* n) const{
-		if(n==nullptr)
-			return;
-		inorder(n->left);
-		inorder(n->right);
-		std::cout << n->val << " ";	
-	}
-
-private:
-	Node<T> *root;
-};
 
 
 
 int main(int argc, char *argv[]){
-	int n, val;
-	BTree<int> t;
 
-	std::cin >> n;
-	for(int i=0; i < n; ++i){
-		std::cin >> val;
-		t.insert(val);
-	}
-
-	t.traversal("inorder");
-
-	return 0;
 }
+
 

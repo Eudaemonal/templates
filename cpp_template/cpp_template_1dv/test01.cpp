@@ -19,10 +19,7 @@ std::ostream& operator<<(std::ostream& os, const ContainerType<ValueType, Args..
 
 int f(std::vector<int> v){
     int n = v.size();
-    for(int i = 0; i < n; ++i){
-        
-    }
-    return 0;
+
 }
 
 int main(int argc, char *argv[]){
