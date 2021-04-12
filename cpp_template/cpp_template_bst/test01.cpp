@@ -1,42 +1,63 @@
 #include <iostream>
+#include <string>
+#include <iomanip>
 #include <queue>
 
-struct TreeNode {
+struct Node {
     int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+    Node *left;
+    Node *right;
+    Node(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-std::ostream& operator<<(std::ostream& os, TreeNode *root)  {  
-    if (root == NULL) return os;
-    std::queue<TreeNode*> q;
- 
-    q.push(root);
-    while (q.empty() == false) {
-        int count = q.size();
-        while (count > 0) {
-            TreeNode* node = q.front();
-            os << node->val << " ";
-            q.pop();
-            if(node->left != NULL){
-                q.push(node->left);
-            }
-            if(node->right != NULL){
-                q.push(node->right);
-            }
-            count--;
-        }
-        os << "\n";
+Node* insert(Node *root, int val){
+    if(root == NULL) {
+        return new Node(val);
     }
+    if (root->val > val) {
+        root->left = insert(root->left, val);
+    } else {
+        root->right = insert(root->right, val);
+    }
+    return root;
+}
+
+void horizontal(std::ostream& os, Node* p, int indent){
+    if(p != NULL) {
+        if(p->right) {
+            horizontal(os, p->right, indent+4);
+        }
+        if (indent) {
+            os << std::setw(indent) << ' ';
+        }
+        if (p->right) os <<" /\n" << std::setw(indent) << ' ';
+        os << p->val << "\n ";
+        if(p->left) {
+            os << std::setw(indent) << ' ' <<" \\\n";
+            horizontal(os, p->left, indent+4);
+        }
+    }
+}
+
+std::ostream& operator<<(std::ostream& os, Node *root)  {  
+    if (root == NULL) return os;
+    horizontal(os, root, 0);
     return os;
 }
 
-
-
+Node* f(Node* root) {
+    return root;
+}
 
 int main(int argc, char *argv[]){
-
+    Node* root;
+    int n, val;
+    std::cin >> n;
+    for (int i=0; i<n; ++i) {
+        std::cin >> val;
+        root = insert(root, val);
+    }
+    std::cout << f(root);
 }
 
 

@@ -1,12 +1,25 @@
 #include <iostream>
 
-struct ListNode {
+struct Node {
     int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
+    Node *next;
+    Node(int x) : val(x), next(NULL) {}
 };
 
-std::ostream& operator<<(std::ostream& os, ListNode* curr){
+Node* append(Node* head, int val){
+    Node* node = new Node(val);
+    if(head == NULL) {
+        return node;
+    }
+    Node* curr = head;
+    while(curr->next) {
+        curr = curr->next;
+    }
+    curr->next = node;
+    return head;
+}
+
+std::ostream& operator<<(std::ostream& os, Node* curr){
     while(curr){
         os << curr->val;
         os << " ";
@@ -16,29 +29,13 @@ std::ostream& operator<<(std::ostream& os, ListNode* curr){
     return os;
 }
 
-ListNode* f(ListNode* head){
-    return head;
-}
-
-ListNode* append(ListNode* head, int val){
-    ListNode* node = new ListNode(val);
-    if(head == nullptr){
-        head = node;
-    }
-    else{
-        ListNode* curr = head;
-        while(curr->next){
-            curr = curr->next;
-        }
-        curr->next = node;
-    }
+Node* f(Node* head){
     return head;
 }
 
 int main(int argc, char *argv[]){
+    Node* head;
     int n, val;
-    ListNode* head;
-
     std::cin >> n;
 	for(int i = 0; i < n; ++i){
 		std::cin >> val;
