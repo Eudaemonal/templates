@@ -55,7 +55,7 @@ elif [ $1 = "-proj" ]; then
 else
 	echo "Create cpp Test"
 	cp -r ~/Templates/cpp_template/cpp_template_test .
-	mv cpp_template_proj $1
+	mv cpp_template_test $1
 	cd $1
 	gvim *.cpp *.txt
 fi
