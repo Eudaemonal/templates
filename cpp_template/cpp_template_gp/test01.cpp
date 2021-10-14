@@ -1,38 +1,50 @@
 #include <iostream>
 #include <vector>
+#include <string>
+#include <list>
+#include <queue>
+#include <regex>
+#include <unordered_map>
 
-template <typename T>
-std::ostream& operator<<(std::ostream& os, const std::vector<std::vector<T>> &v){
-	for(size_t i=0; i < v.size(); ++i){
-		for(size_t j=0; j < v[0].size(); ++j){
-			os << v[i][j] << " ";
-		}
-		os << "\n";
+std::vector<std::string> split(std::string re, std::string str){
+	std::regex e(re);
+	std::vector<std::string> res;
+	std::regex_token_iterator<std::string::iterator> iter(str.begin(), str.end(), e, -1);
+	std::regex_token_iterator<std::string::iterator> end;
+	for (;iter != end; iter++){
+		res.push_back(*iter);
 	}
-	return os;
+	return res;
 }
 
-int f(std::vector<std::vector<int>> v){
-	int n = v.size();
-	int m = v[0].size();
-	for(int i=0; i < n; ++i){
-		for(int j=0; j < m; ++j){
-			
-		}
-	}
-	return 0;
+
+int f(std::vector<std::list<int>> g ) {
+    int n = g.size();
+    for(int i = 0; i < n; ++i){
+        std::cout << i << ": ";
+        for (int neighbor : g[i]) {
+            std::cout << neighbor << " ";
+        }
+        std::cout << "\n";
+    }
+
+    return 0;
 }
+
 
 int main(int argc, char *argv[]){
-	int n, m;
-	std::cin >> n >> m;
-	std::vector<std::vector<int>> v(n, std::vector<int>(m));
-	for(int i = 0; i < n; ++i){
-		for(int j = 0; j < m; ++j){
-			std::cin >> v[i][j];
-		}
-	}
-	
-	std::cout << f(v) << "\n";
-	return 0;
+    int a, b, n;
+    std::string s;
+    std::cin >> n;
+    
+    std::vector<std::list<int>> g(n);
+    for(int i = 0; i < n; ++i){
+        std::cin >> s;
+        for (std::string neighbor: split(",", s)) {
+            g[i].push_back(stoi(neighbor));
+        }
+    }
+
+    std::cout << f(g) << "\n";
+    return 0;
 }

@@ -12,10 +12,10 @@ std::ostream& operator<<(std::ostream& os, const std::vector<std::vector<T>> &v)
 	return os;
 }
 
-int f(std::vector<std::vector<int>> v){
+std::vector<std::vector<int>> f(std::vector<std::vector<int>> v){
 	int n = v.size();
 	int m = v[0].size();
-
+    return v;
 }
 
 int main(int argc, char *argv[]){

@@ -32,22 +32,29 @@ elif [ $1 = "-ll" ]; then
 	gvim *.cpp *.txt
 
 elif [ $1 = "-bst" ]; then
-	echo "Create cpp btree"
+	echo "Create cpp Btree"
 	cp -r ~/Templates/cpp_template/cpp_template_bst .
 	mv cpp_template_bst $2
 	cd $2
 	gvim *.cpp *.txt
 
 elif [ $1 = "-gp" ]; then
-	echo "Create cpp graph"
+	echo "Create cpp Graph"
 	cp -r ~/Templates/cpp_template/cpp_template_bst .
 	mv cpp_template_bst $2
 	cd $2
 	gvim *.cpp *.txt
 
-else
+elif [ $1 = "-proj" ]; then
 	echo "Create cpp Project"
 	cp -r ~/Templates/cpp_template/cpp_template_proj .
+	mv cpp_template_proj $1
+	cd $1
+	gvim *.cpp *.txt
+
+else
+	echo "Create cpp Test"
+	cp -r ~/Templates/cpp_template/cpp_template_test .
 	mv cpp_template_proj $1
 	cd $1
 	gvim *.cpp *.txt

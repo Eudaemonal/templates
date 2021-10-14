@@ -17,9 +17,9 @@ std::ostream& operator<<(std::ostream& os, const ContainerType<ValueType, Args..
     return os;
 }
 
-int f(std::vector<int> v){
+std::vector<int> f(std::vector<int> v){
     int n = v.size();
-
+    return v;
 }
 
 int main(int argc, char *argv[]){
